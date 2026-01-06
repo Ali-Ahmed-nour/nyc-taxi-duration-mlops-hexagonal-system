@@ -2,48 +2,55 @@
 
 > This document captures the technical concepts and professional tools **explored and mastered** during the development of the **Taxi Duration NY Project**.
 
----
+______________________________________________________________________
 
 ## 🧪 Machine Learning & Optimization
 
 ### 🚀 Model Tuning & Performance
-* **Bayesian Hyperparameter Optimization**
-    * **Hyperopt**: Integrated `Hyperopt` for automated hyperparameter tuning. Leveraged the **Tree of Parzen Estimators (TPE)** algorithm to efficiently navigate the search space, significantly reducing optimization time compared to traditional Grid or Random Search methods.
-    * **Search Space Definition**: Mastered defining complex search spaces using `hp.quniform`, `hp.loguniform`, and `hp.choice` to optimize model convergence.
 
----
+- **Bayesian Hyperparameter Optimization**
+  - **Hyperopt**: Integrated `Hyperopt` for automated hyperparameter tuning. Leveraged the **Tree of Parzen Estimators (TPE)** algorithm to efficiently navigate the search space, significantly reducing optimization time compared to traditional Grid or Random Search methods.
+  - **Search Space Definition**: Mastered defining complex search spaces using `hp.quniform`, `hp.loguniform`, and `hp.choice` to optimize model convergence.
+
+______________________________________________________________________
 
 ## 🛠 Software Engineering & Infrastructure
 
 ### 📦 Project & Environment Management
-* **Modern Python Tooling**
-    * **uv Project Workflow**: Transitioned to a full project-based workflow using `uv`. By utilizing `pyproject.toml` and lockfiles, I ensured high-performance dependency management and strictly reproducible development environments.
-    * **Dev-Dependencies Management**: Implemented a clear separation between production and development dependencies, ensuring a lightweight production build.
-    * **Pathlib Integration**: Adopted `pathlib` for object-oriented filesystem paths, providing a cleaner alternative to the legacy `os.path`.
+
+- **Modern Python Tooling**
+  - **uv Project Workflow**: Transitioned to a full project-based workflow using `uv`. By utilizing `pyproject.toml` and lockfiles, I ensured high-performance dependency management and strictly reproducible development environments.
+  - **Dev-Dependencies Management**: Implemented a clear separation between production and development dependencies, ensuring a lightweight production build.
+  - **Pathlib Integration**: Adopted `pathlib` for object-oriented filesystem paths, providing a cleaner alternative to the legacy `os.path`.
 
 ### 🛡 Code Quality, Security & Automation
-* **Workflow Automation**
-    * **Justfile (Just Task Runner)**: Implemented a `justfile` to orchestrate project tasks, providing a unified interface for commands like environment setup and linting.
-    * **Pre-commit Hooks**: Implemented a `pre-commit` framework to automate code quality checks before version control entry.
 
-* **Advanced Testing & Data Synthesis**
-    * **Property-Based Testing (Hypothesis)**: Implemented to automate edge-case discovery by generating diverse datasets to validate domain invariants.
-    * **Dynamic Factories (Factory Boy)**: Developed decoupled, reusable object blueprints for domain entities, replacing static fixtures.
-    * **Hybrid Testing Strategy**: Integrated `factory_boy` with `Hypothesis` via `st.builds()` for high-coverage validation of the domain layer.
+- **Workflow Automation**
 
+  - **Justfile (Just Task Runner)**: Implemented a `justfile` to orchestrate project tasks, providing a unified interface for commands like environment setup and linting.
+  - **Pre-commit Hooks**: Implemented a `pre-commit` framework to automate code quality checks before version control entry.
 
+- **Advanced Testing & Data Synthesis**
 
-* **Security & Dependency Analysis**
-    * **Mend (Mend Advisor)**: Integrated Mend to scan third-party dependencies for security vulnerabilities (SCA). Used Mend Advisor to evaluate the health of open-source libraries before integration.
-    * **SonarQube for IDE**: Integrated SonarQube for real-time deep code analysis, identifying "Code Smells" and logic patterns.
+  - **Property-Based Testing (Hypothesis)**: Implemented to automate edge-case discovery by generating diverse datasets to validate domain invariants.
+  - **Dynamic Factories (Factory Boy)**: Developed decoupled, reusable object blueprints for domain entities, replacing static fixtures.
+  - **Hybrid Testing Strategy**: Integrated `factory_boy` with `Hypothesis` via `st.builds()` for high-coverage validation of the domain layer.
 
-* **Static Analysis & Linting Ecosystem**
-    * **Ruff & Isort**: Leveraged Ruff for high-performance linting/formatting and Isort for automated import organization.
-    * **Pylance & Pyright**: Leveraged for advanced static analysis and strict type-checking via `pyrightconfig.json`.
-    * **pandas-stubs**: Utilized to bring static typing to the Pandas library.
+- **Security & Dependency Analysis**
 
-* **Advanced Structural Typing**
-    * **TypedDict**: Leveraged from the `typing` module to define explicit schemas for dictionaries, ensuring data consistency.
+  - **Mend (Mend Advisor)**: Integrated Mend to scan third-party dependencies for security vulnerabilities (SCA). Used Mend Advisor to evaluate the health of open-source libraries before integration.
+  - **SonarQube for IDE**: Integrated SonarQube for real-time deep code analysis, identifying "Code Smells" and logic patterns.
 
----
+- **Static Analysis & Linting Ecosystem**
+
+  - **Ruff & Isort**: Leveraged Ruff for high-performance linting/formatting and Isort for automated import organization.
+  - **Pylance & Pyright**: Leveraged for advanced static analysis and strict type-checking via `pyrightconfig.json`.
+  - **pandas-stubs**: Utilized to bring static typing to the Pandas library.
+
+- **Advanced Structural Typing**
+
+  - **TypedDict**: Leveraged from the `typing` module to define explicit schemas for dictionaries, ensuring data consistency.
+
+______________________________________________________________________
+
 *This file is updated as the project evolves.*
