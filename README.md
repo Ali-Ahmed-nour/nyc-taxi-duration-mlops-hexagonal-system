@@ -1,127 +1,88 @@
-# 🚕 NYC Taxi Duration Prediction: Hexagonal MLOps Pipeline
+# 🚕 STIE: Sovereign Taxi Inference Engine
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ali_Ahmed_Nour-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/ali-ahmed-nour/)
-[![WhatsApp & Call](https://img.shields.io/badge/WhatsApp_%26_Call-01007871314-green?style=flat&logo=whatsapp)](https://wa.me/201007871314)
-[![Call Only](https://img.shields.io/badge/Call_Only-01288061914-orange?style=flat&logo=phone)](tel:+201288061914)
-
-[![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/)
-[![Architecture](https://img.shields.io/badge/Design-Hexagonal-green.svg)](https://en.wikipedia.org/wiki/Hexagonal_architecture)
-[![Data Engine](https://img.shields.io/badge/Data-Polars-yellow.svg)](https://pola.rs/)
-[![Environment](https://img.shields.io/badge/Managed%20by-uv_project-purple.svg)](https://github.com/astral-sh/uv)
-
-A production-ready MLOps project that predicts NYC taxi trip durations by transitioning from exploratory notebooks to a robust, cloud-agnostic pipeline—emphasizing **software architecture**, maintainability, and engineering rigor over ad-hoc scripting.
-
-## 🎯 Business Problem & Technical Vision
-
-Accurate trip duration prediction is essential for urban mobility platforms. It directly enhances:
-
-- Rider experience through reliable ETAs
-- Fleet dispatch efficiency
-- Dynamic pricing and fare estimation
-
-This project uses public **NYC Taxi & Limousine Commission (TLC)** data to build a high-performance ML system grounded in **Domain-Driven Design** and **Hexagonal Architecture**. The core logic is completely decoupled from infrastructure concerns (e.g., storage, tracking), ensuring testability, portability, and long-term maintainability.
-
-### 🧠 Core Domain Model
-
-Pure, framework-agnostic Python entities encapsulate business rules:
-
-```mermaid
-classDiagram
-    direction LR
-    class TaxiTrip {
-        +str trip_id
-        +Location pickup_loc
-        +Location dropoff_loc
-        +datetime pickup_time
-        +datetime dropoff_time
-        +duration() -> float
-        +is_valid_for_model() -> bool
-    }
-    class Location {
-        +str location_id
-    }
-    TaxiTrip "1" *-- "2" Location : involves
-```
-
-## 🏗️ Architecture & Project Structure
-
-### Engineering Principles
-
-- **Hexagonal Architecture**: Core ML logic is isolated from external systems (storage, MLflow, etc.).
-- **Infrastructure Agnostic**: The core logic doesn't care if data comes from a local Parquet file, an S3 bucket, or a SQL database. Similarly, it treats MLflow as just one possible implementation of a Tracking Port.
-- **High-Performance I/O**: Built on **Polars**—a Rust-based DataFrame library delivering 30–50× speedups over Pandas for Parquet workloads.
-- **Type Safety & Quality**: Enforced via **Pyright** (type checking) and **Ruff** (linting/formatting).
-- **Reproducibility**: Managed by **uv project**, a Rust-based Python toolchain that replaces `pip`, `poetry`, and `virtualenv`.
-
-### 📂 Directory Layout (Updated)
-
-```text
-.
-├── src/
-│   ├── core/
-│   │   ├── domain/         # Pure entities (e.g., TaxiTrip) & Business Rules
-│   │   └── application/    
-│   │       ├── ports/      # Abstract interfaces (The contracts)
-│   │       └── use_cases/  # Business logic orchestration (Training, Inference)
-│   ├── infrastructure/     
-│   │   └── repositories/   # Concrete adapters (e.g., PolarsParquetRepo)
-│   └── config.py           # Single Source of Truth for settings
-├── notebooks/              # Exploratory Data Analysis (EDA)
-├── tests/                  # Unit & property-based tests (Pytest + FactoryBoy)
-├── pyproject.toml          # uv project-compatible project metadata
-└── .pre-commit-config.yaml # Automated quality gates
-```
-
-### 🌉 Layers Responsibility (Refinement)
-
-- **Domain Layer (`src/core/domain`):** Defines the "What". Pure Python entities like `TaxiTrip` and their validation logic.
-- **Application Layer (`src/core/application`):** Defines the "How". Contains **Ports** (interfaces) and **Use Cases** that coordinate data flow without knowing about the technical source.
-- **Infrastructure Layer (`src/infrastructure`):** Defines the "With". Concrete implementations like reading Parquet via **Polars** or experiment tracking with **MLflow**.
-
-## 🛠️ Tech Stack
-
-- **Environment & Package Management:** `uv project` (Rust-based toolchain).
-- **Data Engine:** `Polars` (High-performance DataFrame library).
-- **Quality Assurance:** `Ruff` (Linting), `Pyright` (Static Typing), `Pytest` (Testing).
-- **Domain Simulation:** `FactoryBoy` & `Hypothesis` (for robust testing).
-- **Experiment Tracking:** `MLflow` (Planned).
+> **"Architecture is the art of planning for the unknown. We don't just build code; we build sovereign digital assets."**
 
 ______________________________________________________________________
 
-## ⚙️ Environment, Workflow & Getting Started
+### 👤 Principal Architect & Strategic Inquiry
 
-### 🔧 Configuration via `.env`
+**Ali Ahmed Nour** *Principal Architect for Sovereign Hexagonal & DDD Systems*
 
-| Variable | Default | Description |
-|-----------------|-----------------------|---------------------------------|
-| `ENV` | `local` | Environment (`local`, `dev`, `prod`) |
-| `DATA_PATH` | `./data` | Root path for Parquet datasets |
-| `TRACKING_URI` | `http://localhost:5000` | MLflow tracking server URI |
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/ali-ahmed-nour/)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-Connect-green?style=for-the-badge&logo=whatsapp)](https://wa.me/201007871314)
+[![Phone](https://img.shields.io/badge/Direct_Line-01288061914-orange?style=for-the-badge&logo=phone)](tel:+201288061914)
 
-### 🔄 Development Workflow
+______________________________________________________________________
 
-1. **Research**: Prototype in `notebooks/`.
-1. **Refactor**: Move stable logic to `src/core/domain/`.
-1. **Implement Adapters**: Write infrastructure bindings in `src/infrastructure/`.
-1. **Validate**: All changes must pass `pre-commit` hooks.
+### 🎯 The Sovereign Thesis
+
+[cite_start]STIE is an engineered **Unified Inference Hub** designed for NYC Taxi operations[cite: 16]. This platform represents an evolution from being "Agnostic" to being **Sovereign**.
+
+[cite_start]In this architecture, the **Business Logic is the Sovereign Power**[cite: 3]. [cite_start]We treat the core of the project as a **Sovereign Sanctuary** (Domain Core) with zero external dependencies[cite: 4]. [cite_start]All external tools—Google Cloud, BigQuery, and MLflow—are merely **"interchangeable gears" (تروس)** that can be swapped without touching the system's heart[cite: 11, 24].
+
+## 💎 Strategic Core Values
+
+- [cite_start]**Zero Vendor Lock-in:** The platform is **Cloud-Agnostic**, ensuring we own the Intellectual Property completely and can migrate to any environment without friction[cite: 11, 24].
+- [cite_start]**Multi-Model Scalability:** Designed to evolve from a single prediction engine to a **Unified Hub** (Duration, Tip, Cancellation) without altering the core infrastructure[cite: 18, 19, 119].
+- [cite_start]**Industrial-Grade Reliability:** Protected by a "Sovereign Constitution," the system self-audits and rejects corrupted data instantly via **Universal Invariants**[cite: 37, 47].
+- [cite_start]**Economic Optimization:** Powered by the **Polars Lazy Engine** to reduce computational footprint, leading to lower infrastructure costs and higher processing speeds[cite: 58, 59].
+- **Institutional Transparency:** Full adherence to the **10-File Documentation Standard** ensures a permanent, audit-ready asset for any global team.
+
+## ⚙️ Engineering & Operational DNA
+
+#### 🛡️ Sovereign Hexagonal Implementation
+
+- [cite_start]**Domain Core (The Sanctuary):** Zero external library imports; contains pure business logic and immutable entities[cite: 4, 30].
+- [cite_start]**Application Layer (The Orchestrator):** Defines **Strict Ports** (Interfaces) for data ingestion and inference.
+- [cite_start]**Infrastructure Layer (The Laborers):** Implements swappable adapters for Polars, ML engines, and Cloud APIs[cite: 8, 10, 75].
+
+#### ⚡ Performance & Data Integrity
+
+- [cite_start]**Memory Efficiency:** All entities utilize `__slots__` and `frozen=True` (Python 3.12+) for extreme RAM optimization[cite: 29, 30].
+- [cite_start]**The Lazy Protocol:** Integration of **Polars Lazy API** with Projection and Predicate Pushdown to optimize query plans[cite: 53, 54].
+- [cite_start]**Registry Pattern:** Flexible storage for multiple model outputs using a `Dict[str, float]` within the core entity[cite: 34, 35].
+
+#### 🧪 Quality & MLOps Governance
+
+- **Enterprise-Grade Code Quality:** Managed via **SonarQube** for continuous monitoring of Technical Debt and Security Hotspots.
+- **Sovereign Error Taxonomy:** Every failure returns a deterministic code (e.g., `ERR_DOM_VAL_001`) for industrial-grade monitoring.
+- **Shield Protocol:** Mandatory **Pre-commit Hooks** enforcing strict linting and safety gates before any persistence.
+- **Security & Compliance:** **Mend (WhiteSource)** integration for continuous open-source vulnerability scanning.
+- **Static Guardrails:** Strict **Pyright** static analysis to ensure 100% type-safety across the Sanctuary.
+- **Test & Logic Integrity:** Enforced via **pytest** and **pytest-cov**, generating automated `.coverage` reports to verify every execution path.
+- **Quality Suite:** Advanced stress testing powered by **Hypothesis** (PBT) and **Factory-Boy**.
+- **Deterministic Environments:** Powered by **uv project** for reproducible and sovereign dependency management.
+- **Model Provenance:** **MLflow** integration for full experiment lineage and automated registry promotion.
+
+## 📂 Documentation & Execution
+
+For deep architectural insights and technical governance, please refer to our **Sovereign Documentation Hub**:
+
+- [cite_start]**[01_Architecture_Strategy](docs/01_Architecture_Strategy/hexagonal_layers.md):** Isolation mandates and dependency rules[cite: 1].
+- [cite_start]**[02_Domain_Core](docs/02_Domain_Core/unified_entity.md):** Entity blueprints and validation invariants[cite: 27, 39].
+- [cite_start]**[03_Infrastructure_Adapters](docs/03_Infrastructure_Adapters/data_ingestion.md):** Data engines and prediction protocols[cite: 50, 75].
+- [cite_start]**[04_Quality_Assurance](docs/04_Quality_Assurance/error_codes.md):** Error taxonomy and testing strategy[cite: 88, 99].
+
+______________________________________________________________________
 
 ### 🚀 Quick Start
 
-```bash
-# Install uv project (Rust-based Python toolchain)
-curl -LsSf https://astral.sh/uv project/install.sh | sh
+1. **Environment Setup:**
 
-# Clone and set up
-git clone https://github.com/your-username/nyc-taxi-mlops-hexagon.git
-cd nyc-taxi-mlops-hexagon
-uv project sync
+   ```bash
+   uv sync # Mandatory environment manager
+   source .venv/bin/activate
 
-# Run quality gates
-uv project run ruff check .
-uv project run pyright .
-uv project run pytest
-```
+   ```
 
-> [!IMPORTANT]\\
->
-> > **Currently Under Construction**: I am actively building and refactoring this project to achieve full Hexagonal maturity. APIs and internal structures are evolving rapidly. Contributions and feedback are welcome!
+1. **Execute Quality Suite:**
+   pytest # Runs Hypothesis (PBT) and Factory-Boy stress tests
+
+## 🚧 Execution Roadmap
+
+| Phase | Milestone | Strategic Objective | Status |
+| :--- | :--- | :--- | :--- |
+| **1** | **Foundational DNA** | Environment Hardening with `uv` & Python 3.12. | [✅] Done |
+| **2** | **Structural Blueprint** | Hexagonal Layers & Sovereign Port Definitions. | [✅] Done |
+| **3** | **Sovereign Brain** | **Domain Entities, Invariants & Error Taxonomy**. | [ ] Ongoing |
+| **4** | **Industrial Ops** | BigQuery Ingestion & Real-time Monitoring. | [ ] Pending |
