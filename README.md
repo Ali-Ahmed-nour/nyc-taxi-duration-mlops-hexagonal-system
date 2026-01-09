@@ -65,15 +65,23 @@ graph TD
 
 ______________________________________________________________________
 
-### Part II: The Sovereign Thesis & Strategic Values
+## Part II: The Sovereign Thesis & Strategic Values
 
-````markdown
+### ⚖️ The Rationale: Sovereignty as a Safety Mandate
+
+STIE is engineered for **Mission-Critical Environments** where logic must govern prediction. Whether in FinTech, HealthTech, or NYC Mobility, we apply the **Sovereign Protocol** to ensure:
+
+- **The Supreme Verdict:** In any high-stakes domain, the ML model acts as a "Consultant." The Sovereign Core acts as the "Judge." If a prediction violates physical reality or business ethics (e.g., impossible tip amounts or lethal drug dosages), the Core enforces the safe limit.
+- **Resilience Against Hallucination:** Systems that rely purely on inference are vulnerable to data drift and model "hallucinations." Our Sanctuary acts as a deterministic filter, sanctifying every decision before it impacts the real world.
+- **Architectural Longevity:** By isolating the "Sovereign Logic" from the "Interchangeable Tools," the system remains an asset that can outlast any specific ML library or Cloud provider.
+
 ### 🎯 The Sovereign Thesis
-STIE is a Future-Proof engineered **Unified Inference Hub** designed for NYC Taxi operations. This platform represents an evolution from being "Agnostic" to being **Sovereign**. 
+
+STIE is a Future-Proof engineered **Unified Inference Hub** designed for NYC Taxi operations. This platform represents an evolution from being "Agnostic" to being **Sovereign**.
 
 In this architecture, the **Business Logic is the Sovereign Power**. We treat the core of the project as a **Sovereign Sanctuary** (Domain Core) with zero external dependencies. All external tools (Google Cloud, BigQuery, ML Engines) are merely **"Interchangeable Gears" (تروس)** that serve the logic; the logic never serves them.
 
-## 💎 Strategic Core Values
+### 💎 Strategic Core Values
 
 - **The Refinery Protocol (Data Sanctification):** We enforce a zero-tolerance policy for data noise. Only "Sanctified" records reach the BigQuery sink, ensuring ML models train on ground truth.
 - **The Supreme Decision Maker (Verdict Loop):** The Core holds the final verdict. If an ML model predicts a value that violates sovereign business invariants (e.g., Peak-Hour Surge limits), the Core overrides it. *The Model proposes, the Core disposes.*
@@ -83,60 +91,71 @@ In this architecture, the **Business Logic is the Sovereign Power**. We treat th
 - **Institutional Transparency:** Full adherence to the **10-File Documentation Standard** ensures a permanent, audit-ready asset for any global team.
 - **Strict Provenance (Traceability):** Every entity carries its `source_id`, ensuring full auditability from the raw ingestion point to the final inference.
 
----
+______________________________________________________________________
+
 ## Part III: Engineering & Quality DNA
 
-#### 🛡️ Sovereign Hexagonal Implementation
+### 🛡️ Sovereign Hexagonal Implementation
+
 - **Domain Core (The Sanctuary):** Zero external library imports; contains pure business logic and immutable entities (Python 3.12+).
 - **Application Layer (The Orchestrator):** Defines **Strict Ports** (Interfaces) for data ingestion and inference.
 - **Infrastructure Layer (The Laborers):** Implements swappable adapters for Polars, ML engines, and Cloud APIs.
 
-#### ⚡ Performance & Integrity Guardrails
+### ⚡ Performance & Integrity Guardrails
+
 - **Memory Efficiency (SOTA):** All entities utilize `__slots__` and `frozen=True` for extreme RAM optimization.
 - **The Lazy Protocol:** Integration of **Polars Lazy API** with Projection and Predicate Pushdown to optimize query plans.
 - **Sovereign Registry Pattern:** Flexible storage for multiple model outputs using a `Dict[str, float]` within the core entity.
 
-#### 🧪 Quality & MLOps Governance
-- **Enterprise-Grade Code Quality:** Managed via **SonarQube** for continuous monitoring of Technical Debt and Security Hotspots.
-- **Sovereign Error Taxonomy:** Every failure returns a deterministic code (e.g., `ERR_DOM_VAL_001`) for industrial-grade monitoring.
-- **Static Guardrails:** Strict **Pyright** static analysis to ensure 100% type-safety across the Sanctuary.
-- **Test & Logic Integrity:** Enforced via **pytest**, **Hypothesis** (PBT), and **Factory-Boy** mocking.
-- **Deterministic Environments:** Powered by **uv project** (Mandatory) for reproducible and sovereign dependency management.
-- **Model Provenance:** **MLflow** integration for full experiment lineage and automated registry promotion.
+### 🧪 Quality & MLOps Governance
 
----
+- **Enterprise-Grade Code Quality:** Managed via **SonarQube** for continuous monitoring of Technical Debt.
+- **Sovereign Error Taxonomy:** Every failure returns a deterministic code (e.g., `ERR_DOM_VAL_001`).
+- **Shield Protocol:** Mandatory **Pre-commit Hooks** enforcing strict linting before any persistence.
+- **Security & Compliance:** **Mend (WhiteSource)** integration for continuous vulnerability scanning.
+- **Static Guardrails:** Strict **Pyright** static analysis to ensure 100% type-safety.
+- **Test & Logic Integrity:** Enforced via **pytest** and **pytest-cov** for automated coverage reporting.
+- **Quality Suite:** Advanced stress testing powered by **Hypothesis** (PBT) and **Factory-Boy**.
+- **Deterministic Environments:** Powered by **uv project** (Mandatory).
+- **Model Provenance:** **MLflow** integration for full experiment lineage.
+
+______________________________________________________________________
+
 ## Part IV: Documentation & Execution Roadmap
 
 ## 📂 Documentation Hub
+
 For deep architectural insights, refer to our **Sovereign Documentation Hub**:
+
 - **[01_Architecture_Strategy](docs/01_Architecture_Strategy/hexagonal_layers.md):** Isolation mandates.
 - **[02_Domain_Core](docs/02_Domain_Core/unified_entity.md):** Entity blueprints.
 - **[03_Infrastructure_Adapters](docs/03_Infrastructure_Adapters/data_ingestion.md):** Data engines.
 - **[04_Quality_Assurance](docs/04_Quality_Assurance/error_codes.md):** Error taxonomy.
 
-## 🚧 Execution Roadmap
+### 🚧 Execution Roadmap
 
 | Phase | Milestone | Strategic Objective | Target Context | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Foundational DNA** | Environment Hardening & Security Guardrails. | `uv`, `pre-commit` | ✅ Done |
-| **2** | **Structural Blueprint** | Defining Hexagonal Ports for Ingestion & Inference. | `core/application/` | ✅ Done |
-| **3** | **Sovereign Brain** | **Refinery Logic: Entities, Sanctification & Business Overrides.** | `core/domain/` | 🚀 **Ongoing** |
-| **4** | **Orchestration** | Use-Case implementation & Feedback Loop flows. | `core/application/` | ⏳ Pending |
-| **5** | **Infrastructure** | High-speed Laborers for Polars & ML Engines. | `infrastructure/` | ⏳ Pending |
-| **6** | **Industrial Ops** | Enterprise QA (SonarQube) & Main Integration. | `main.py` | ⏳ Pending |
+| **1** | **Foundational DNA** | Environment Hardening & Security Guardrails. | `uv`, `.pre-commit-config.yaml` | ✅ Done |
+| **2** | **Structural Blueprint** | Defining Hexagonal Ports (Interfaces). | `core/application/ports/` | ✅ Done |
+| **3** | **Sovereign Brain** | **Crafting Domain Entities & Value Objects.** | `core/domain/` | 🚀 **Ongoing** |
+| **4** | **Orchestration** | Implementing Core Use-Cases & Workflows. | `core/application/use_cases/` | ⏳ Pending |
+| **5** | **Infrastructure** | Developing Laborers for Polars & ML Engines. | `infrastructure/adapters/` | ⏳ Pending |
+| **6** | **Industrial Ops** | Integration & Enterprise-Grade QA (SonarQube). | `main.py`, `infrastructure/config/` | ⏳ Pending |
 
----
+______________________________________________________________________
+
 ### 🚀 Quick Start
+
 ```bash
 # Sync sovereign environment
 uv sync 
 source .venv/bin/activate
-```
+
 # Execute Quality Suite
 pytest
-
+```
 
 ______________________________________________________________________
 
 > *"Architected for the Future of NYC Mobility. Designed to Outlast the Tools."*
-````
