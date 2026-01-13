@@ -1,38 +1,51 @@
-# Hexagonal Layers: The Isolation Mandate
+# 🏛️ Hexagonal Layers: The Sovereign Isolation Mandate
 
-## 1. Architecture Philosophy
+## 1. Architecture Philosophy (The Dependency Rule)
 
-To build a scalable platform, we enforce a **Dependency Rule**: Dependencies must only point **INWARDS**. The Core should never know about the database, the ML framework, or the API.
+To build a world-class scalable platform, we enforce a strict **Inward Dependency Rule**. The Core is a "Sovereign Sanctuary"—it must never possess knowledge of databases, ML frameworks, or APIs. Logic flows inward; dependencies never point out.
 
 ## 2. The Three Sovereign Layers
 
 ### A. The Domain Core (The Sanctuary)
 
-- **Role:** Contains the business logic, entities (`TaxiTrip`), and universal constants.
-- **Rules:** - No external library imports (except standard Python).
-  - Contains "Functional Core" logic (Pure functions, immutable data).
-  - **Stability:** This is the most stable part of the system.
+- **Role:** Host of business logic, Aggregate Roots (`TaxiTrip`), and Value Objects.
+- **Rules:** - **Zero External Dependencies:** Strictly Standard Python only.
+  - **Immutability:** Forced via `@dataclass(frozen=True, slots=True)`.
+  - **Stability:** The most stable and protected layer of the ecosystem.
 
 ### B. The Application Layer (The Orchestrator)
 
-- **Role:** Defines the **Ports** (Interfaces).
-- **Ports:** - `TripRepositoryPort`: Interface for loading data.
-  - `InferencePort`: Interface for making predictions.
-- **Responsibility:** Coordinates how data flows from the repository to the domain and then to the models.
+- **Role:** Definition of **Ports** (Interfaces) and orchestration.
+- **Components:** - `TripRepositoryPort`: Interface for data ingestion.
+  - `InferencePort`: Interface for ML model execution.
+- **Responsibility:** Directing the flow of data between adapters and the domain sanctuary.
 
 ### C. The Infrastructure Layer (The Laborers)
 
-- **Role:** Implements the Adapters.
+- **Role:** Implementation of **Adapters**.
 - **Components:**
-  - **Data Adapters:** Polars-based parquet scanners.
-  - **ML Adapters:** Specific implementations for XGBoost, CatBoost, etc.
-  - **API Adapters:** Flask/FastAPI implementation for serving.
-- **Rules:** This layer is the "Disposable" part. We can swap Flask for FastAPI without touching the Domain.
+  - **Data Engine:** Polars-based Parquet scanners (Lazy API).
+  - **ML Adapters:** Implementations for XGBoost/CatBoost.
+  - **API Servicing:** Disposable layers for model serving.
+- **Mandate:** This layer is "Disposable." Tools are swapped without compromising the Domain.
 
-## 3. Communication Flow
+## 3. Communication Flow (The Atomic Protocol)
 
-1. **Request:** Comes through an Infrastructure Adapter (e.g., API).
-1. **Orchestration:** Application layer calls the Data Adapter to get a `TaxiTrip`.
-1. **Execution:** The Domain validates the trip.
-1. **Inference:** The Application layer hands the trip to an ML Adapter.
-1. **Response:** The result is stored in the `predictions_registry` and returned.
+Data and signals traverse hexagonal boundaries via a strict sequence:
+
+1. **Request Entry:** Raw data is ingested via an **Infrastructure Adapter** (e.g., Polars scanner).
+1. **Domain Construction:** The Adapter attempts to instantiate a `TaxiTrip` entity using Sovereign Value Objects.
+1. **The Atomic Guardrail:** Instantiation triggers the `__post_init__` sequence. No intermediaries like `validate()` are allowed.
+1. **Signal Propagation:** - If logic is violated (e.g., Velocity > 125 mph), the Domain raises a `DomainValidationError`.
+   - The **Application Layer** intercepts this signal to log "Dirty Data" or abort the pipeline.
+1. **Registry Injection:** Valid entities are enriched via the `predictions` registry for ML traceability.
+
+## 4. Execution & Error Standards
+
+- **Sovereign Codes:** Any violation triggers a specific code (e.g., `ERR_DOM_VAL_001`).
+- **Isolation:** Domain exceptions inherit from a base `DomainValidationError` in `exceptions.py`, ensuring complete decoupling from infrastructure runtime errors.
+- **Documentation (SDDL):** Every method follows the **Action/Logic/Rationale** protocol to maintain institutional memory within the code.
+
+______________________________________________________________________
+
+*"Architected for the Future of Urban Transit. Designed to Outlast the Tools."*

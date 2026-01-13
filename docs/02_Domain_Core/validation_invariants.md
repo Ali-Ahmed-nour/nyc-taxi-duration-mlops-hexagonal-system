@@ -1,37 +1,51 @@
-# Validation Invariants: The Guardrails of Truth
+# 🏛️ Validation Invariants: The Guardrails of Truth (SOTA 2026)
 
-## 1. Universal Invariants (Global Laws)
+## 1. Individual Invariants (Atomic Value Object Laws)
 
-These rules are non-negotiable and apply to every `TaxiTrip` entity, regardless of the model being used:
+These rules are enforced at the moment of creation for each sub-component. If these fail, the component cannot exist.
 
-- **Spatial Integrity:** `trip_distance` must be $> 0$. Physical movement is required for a "trip" to exist.
-- **Temporal Logic:** `dropoff_time` must be chronologically after `pickup_time`.
-- **Identity:** `vendor_id` and `LocationIDs` must be non-null and valid strings/integers.
+- **Spatial Boundary:** `pickup_id` and `dropoff_id` must follow the `ZONE_` prefix protocol.
+- **Occupancy Boundary:** `passenger_count` must be between 0 and 9.
+- **Financial Boundary:** All monetary components (fare, taxes, tolls) must be non-negative.
+- **Rationale:** To block data corruption at the most granular level before it reaches the orchestrator.
 
-## 2. Model-Specific Constraints (Task Laws)
+## 2. Relational Invariants (Global Entity Laws)
 
-Since this is a multi-model platform, each prediction task may have its own "Quality Filter":
+These rules are enforced by the `TaxiTrip` Aggregate Root. They govern the relationship between multiple Value Objects.
 
-### A. Trip Duration Engine (MVP)
+### A. Physics Engine (Velocity Guard)
 
-- **Constraint:** $1.0 \\le \\text{duration} \\le 60.0$ minutes.
-- **Rationale:** Outliers outside this range are often GPS errors or long-stays that bias the duration model.
+- **Rule:** Velocity must not exceed 125 mph.
+- **Logic:** `distance_miles / (duration_minutes / 60)`.
+- **Rationale:** NYC urban traffic physics and legal limits. Anything above is flagged as `PhysicalImpossibilityError`.
 
-### B. Future Models (Examples)
+### B. Temporal Integrity (Time Sequence)
 
-- **Tip Predictor:** Requires `payment_type` to be 'Credit Card' (Cash tips are often unrecorded).
-- **Cancellation Model:** Requires historical `passenger_id` consistency.
+- **Rule:** `duration_minutes` must be a positive non-zero value.
+- **Logic:** `dropoff_at - pickup_at`.
+- **Rationale:** Blocks "Time Travel" anomalies where the trip ends before it starts.
 
-## 3. Enforcement Strategy
+### C. Financial Audit (Arithmetic Integrity)
 
-- **Layer:** All validation occurs inside the **Domain Core**.
-- **Action:** If a Universal Invariant fails, the entity is **Rejected** (Critical Error).
-- **Action:** If a Model-Specific constraint fails, the entity is marked as **Ineligible** for that specific model but remains valid for others.
+- **Rule:** Calculated sum of sub-charges must match the `total_amount`.
+- **Logic:** `abs(actual - calculated) <= 0.01`.
+- **Rationale:** Protects against floating-point errors and ghost charges.
 
-## 4. Error Mapping
+## 3. Enforcement Strategy (Atomic Defense)
 
-| Violation | Code | Severity |
-| :--- | :--- | :--- |
-| Negative/Zero Distance | `ERR_VAL_UNIV_001` | High |
-| Logical Time Reversal | `ERR_VAL_UNIV_002` | High |
-| Outlier Duration | `ERR_VAL_TASK_001` | Medium (Skip Task) |
+- **Layer:** All validation is strictly contained within the **Domain Core**.
+- **Action:** No generic `validate()` calls. Validation is automatic during instantiation (`__post_init__`).
+- **Outcome:** If an invariant fails, a `DomainValidationError` is raised immediately, halting the pipeline.
+
+## 4. Sovereign Error Mapping
+
+| Violation Type | Sovereign Code | Exception Class | Severity |
+| :--- | :--- | :--- | :--- |
+| Velocity Violation | `ERR_DOM_VAL_001` | `PhysicalImpossibilityError` | CRITICAL |
+| Financial Mismatch | `ERR_DOM_VAL_002` | `FinancialMismatchError` | CRITICAL |
+| Spatial Protocol | `ERR_DOM_VAL_007` | `SpatialIntegrityError` | HIGH |
+| Temporal Anomaly | `ERR_DOM_VAL_013` | `TemporalAnomalyError` | HIGH |
+
+______________________________________________________________________
+
+*"Invariants are not suggestions; they are the physical laws of our digital sanctuary."*

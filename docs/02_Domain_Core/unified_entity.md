@@ -1,39 +1,48 @@
-# Unified Domain Entity: TaxiTrip
+# 🏛️ Unified Domain Entity: TaxiTrip (SOTA 2026)
 
-## 1. The Single Source of Truth
+## 1. The Sovereign Source of Truth
 
-The `TaxiTrip` entity is a **Sovereign Object** that represents a single journey. To ensure scalability, it is designed to hold multiple model outputs simultaneously.
+The `TaxiTrip` entity is a **Sovereign Aggregate Root** representing a single journey. It is engineered to be the single point of coordination between raw data, physical laws, and multiple AI model outputs.
 
-## 2. Technical Blueprint (Python 3.12.3)
+## 2. Technical Blueprint (Industrial Standards)
 
-To handle millions of trips in memory (via Polars/Uv), the entity uses:
+To ensure the system can handle massive throughput (Millions of rows via Polars) with zero corruption, the entity mandates:
 
-- **`__slots__`**: For extreme memory efficiency.
-- **`frozen=True`**: To ensure data integrity across the pipeline.
+- **`__slots__ = True`**: Optimized memory layout by preventing the creation of `__dict__`.
+- **`frozen = True`**: Strict immutability to ensure the entity remains a constant throughout the pipeline.
+- **SDDL Documentation**: Every logic block follows the **Action/Logic/Rationale** protocol.
 
-## 3. The Scalable Schema
+## 3. The Sovereign Composition (Schema)
 
-| Attribute | Type | Description |
+The entity is composed of specialized Value Objects that handle their own internal integrity:
+
+| Component | Type | Responsibility |
 | :--- | :--- | :--- |
-| `trip_id` | `str` | Unique Identifier. |
-| `vendor_id` | `str` | Taxi provider ID. |
-| `spatial_data` | `LocationVO` | Value Object for Pickup/Dropoff. |
-| `temporal_data` | `TimeVO` | Value Object for timestamps. |
-| `trip_distance` | `float` | Distance in miles. |
-| **`predictions`** | **`Dict[str, float]`** | **The Registry:** A map of model names to values. |
+| `location` | `TripLocation` | Spatial identifiers and TLC Rate Codes. |
+| `temporal` | `TripTemporal` | Timestamps, Duration, and Seasonality. |
+| `financials` | `TripFinancials` | Fare components and arithmetic audit. |
+| `occupancy` | `TripOccupancy` | Physical distance and passenger count. |
+| **`predictions`** | **`Dict[str, float]`** | **The Registry:** Storage for swappable ML model outputs. |
 
-## 4. The Registry Pattern (Scaling Strategy)
+## 4. The Registry Pattern (The AI Hub)
 
-Unlike traditional models, we do not add a new field for every model. Instead:
+Instead of anemic models with fixed fields, we use a **Dynamic Registry**. This allows the entity to scale horizontally across different ML tasks:
 
-- If we predict **Duration**, we add: `predictions["trip_duration"] = 15.5`
-- If we predict **Tip**, we add: `predictions["expected_tip"] = 5.0`
-- If we predict **Cancellation**, we add: `predictions["cancel_prob"] = 0.02`
+- **Logic:** `predictions` maps a model's signature to its result.
+- **Example:** - `predictions["trip_duration_v1"] = 1240.5`
+  - `predictions["fare_estimate_xgboost"] = 18.75`
 
-## 5. Domain Logic: Validation
+## 5. Domain Logic: Atomic Defense
 
-The entity is responsible for its own sanity. It contains a `validate()` method that:
+The entity is "Self-Guarding." It utilizes `__post_init__` to trigger immediate validation, making it physically impossible for an invalid `TaxiTrip` to exist in memory.
 
-1. Checks if spatial and temporal data are consistent.
-1. Ensures mandatory fields for ML (like distance) are present.
-1. Throws a `SovereignDomainError` if invariants are violated.
+### Cross-Object Invariants:
+
+1. **Velocity Guard (`_check_physical_velocity`):** - **Action:** Detects impossible transit speeds.
+   - **Rationale:** NYC physical limits (125 mph) filter out GPS anomalies or fraudulent data.
+1. **Financial Guard (`_check_financial_integrity`):** - **Action:** Audits the sum of all charges.
+   - **Rationale:** Ensures accounting consistency within a 0.01 tolerance threshold.
+
+______________________________________________________________________
+
+*"One Entity. Total Integrity. Built for the Future of NYC Transit."*
